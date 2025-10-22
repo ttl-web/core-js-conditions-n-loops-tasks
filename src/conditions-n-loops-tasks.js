@@ -179,10 +179,74 @@ function convertToRomanNumerals(num) {
  *  '10,5'    => 'one zero point five'
  *  '1950.2'  => 'one nine five zero point two'
  */
-function convertNumberToString(/* numberStr */) {
-  throw new Error('Not implemented');
+function convertNumberToString(numberStr) {
+  const digitWords = {
+    0: 'zero',
+    1: 'one',
+    2: 'two',
+    3: 'three',
+    4: 'four',
+    5: 'five',
+    6: 'six',
+    7: 'seven',
+    8: 'eight',
+    9: 'nine',
+    '-': 'minus',
+    '.': 'point',
+    ',': 'point',
+  };
+  let result = '';
+  for (let i = 0; i < numberStr.length; i += 1) {
+    switch (numberStr[i]) {
+      case '0':
+        result += `${digitWords[numberStr[i]]}`;
+        break;
+      case '1':
+        result += `${digitWords[numberStr[i]]}`;
+        break;
+      case '2':
+        result += `${digitWords[numberStr[i]]}`;
+        break;
+      case '3':
+        result += `${digitWords[numberStr[i]]}`;
+        break;
+      case '4':
+        result += `${digitWords[numberStr[i]]}`;
+        break;
+      case '5':
+        result += `${digitWords[numberStr[i]]}`;
+        break;
+      case '6':
+        result += `${digitWords[numberStr[i]]}`;
+        break;
+      case '7':
+        result += `${digitWords[numberStr[i]]}`;
+        break;
+      case '8':
+        result += `${digitWords[numberStr[i]]}`;
+        break;
+      case '9':
+        result += `${digitWords[numberStr[i]]}`;
+        break;
+      case '-':
+        result += `${digitWords[numberStr[i]]}`;
+        break;
+      case '.':
+        result += `${digitWords[numberStr[i]]}`;
+        break;
+      case ',':
+        result += `${digitWords[numberStr[i]]}`;
+        break;
+      default:
+    }
+    if (i < numberStr.length - 1) {
+      result += ' ';
+    } else {
+      result += '';
+    }
+  }
+  return result;
 }
-
 /**
  * Determines whether a string is a palindrome.
  * In this task, the use of methods of the String and Array classes is not allowed.
@@ -195,8 +259,12 @@ function convertNumberToString(/* numberStr */) {
  *  '0123210'   => true
  *  'qweqwe'    => false
  */
-function isPalindrome(/* str */) {
-  throw new Error('Not implemented');
+function isPalindrome(str) {
+  let reversedStr = '';
+  for (let i = 0; i < str.length; i += 1) {
+    reversedStr += str[str.length - 1 - i];
+  }
+  return reversedStr === str;
 }
 
 /**
@@ -213,8 +281,14 @@ function isPalindrome(/* str */) {
  *  'qwerty', 'Q'     => -1
  *  'qwerty', 'p'     => -1
  */
-function getIndexOf(/* str, letter */) {
-  throw new Error('Not implemented');
+function getIndexOf(str, letter) {
+  let found;
+  for (let i = 0; i < str.length; i += 1) {
+    if (str[i] === letter) {
+      found = i;
+    }
+  }
+  return found !== undefined ? found : -1;
 }
 
 /**
@@ -232,8 +306,15 @@ function getIndexOf(/* str, letter */) {
  *  12345, 0    => false
  *  12345, 6    => false
  */
-function isContainNumber(/* num, digit */) {
-  throw new Error('Not implemented');
+function isContainNumber(num, digit) {
+  let isTrue = false;
+  const str = String(num);
+  for (let i = 0; i < str.length; i += 1) {
+    if (str[i] === String(digit)) {
+      isTrue = true;
+    }
+  }
+  return isTrue;
 }
 
 /**
