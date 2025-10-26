@@ -330,8 +330,22 @@ function isContainNumber(num, digit) {
  *  [2, 3, 9, 5] => 2       => 2 + 3 === 5 then balance element is 9 and its index = 2
  *  [1, 2, 3, 4, 5] => -1   => no balance element
  */
-function getBalanceIndex(/* arr */) {
-  throw new Error('Not implemented');
+function getBalanceIndex(arr) {
+  if (arr.length < 3) return -1;
+  let totalSum = 0;
+  for (let i = 0; i < arr.length; i += 1) {
+    totalSum += arr[i];
+  }
+
+  let leftSum = 0;
+  for (let i = 0; i < arr.length; i += 1) {
+    const rightSum = totalSum - leftSum - arr[i];
+    if (leftSum === rightSum) {
+      return i;
+    }
+    leftSum += arr[i];
+  }
+  return -1;
 }
 
 /**
@@ -355,8 +369,56 @@ function getBalanceIndex(/* arr */) {
  *          [10, 9,  8,  7]
  *        ]
  */
-function getSpiralMatrix(/* size */) {
-  throw new Error('Not implemented');
+function getSpiralMatrix(size) {
+  const matrix = [];
+  for (let i = 0; i < size; i += 1) {
+    matrix[i] = [];
+    for (let j = 0; j < size; j += 1) {
+      matrix[i][j] = 0;
+    }
+  }
+
+  let num = 1;
+  let row = 0;
+  let col = 0;
+  let direction = 'right';
+
+  while (num <= size * size) {
+    matrix[row][col] = num;
+    num += 1;
+
+    if (direction === 'right') {
+      if (col + 1 < size && matrix[row][col + 1] === 0) {
+        col += 1;
+      } else {
+        direction = 'down';
+        row += 1;
+      }
+    } else if (direction === 'down') {
+      if (row + 1 < size && matrix[row + 1][col] === 0) {
+        row += 1;
+      } else {
+        direction = 'left';
+        col -= 1;
+      }
+    } else if (direction === 'left') {
+      if (col - 1 >= 0 && matrix[row][col - 1] === 0) {
+        col -= 1;
+      } else {
+        direction = 'up';
+        row -= 1;
+      }
+    } else if (direction === 'up') {
+      if (row - 1 >= 0 && matrix[row - 1][col] === 0) {
+        row -= 1;
+      } else {
+        direction = 'right';
+        col += 1;
+      }
+    }
+  }
+
+  return matrix;
 }
 
 /**
@@ -374,8 +436,26 @@ function getSpiralMatrix(/* size */) {
  *    [7, 8, 9]         [9, 6, 3]
  *  ]                 ]
  */
-function rotateMatrix(/* matrix */) {
-  throw new Error('Not implemented');
+function rotateMatrix(matrix) {
+  const n = matrix.length;
+  const tempMatrix = matrix;
+  for (let i = 0; i < n; i += 1) {
+    for (let j = i; j < n; j += 1) {
+      const temp = matrix[i][j];
+      tempMatrix[i][j] = matrix[j][i];
+      tempMatrix[j][i] = temp;
+    }
+  }
+
+  for (let i = 0; i < n; i += 1) {
+    for (let j = 0; j < Math.floor(n / 2); j += 1) {
+      const temp = matrix[i][j];
+      tempMatrix[i][j] = matrix[i][n - 1 - j];
+      tempMatrix[i][n - 1 - j] = temp;
+    }
+  }
+
+  return matrix;
 }
 
 /**
@@ -392,8 +472,36 @@ function rotateMatrix(/* matrix */) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
-function sortByAsc(/* arr */) {
-  throw new Error('Not implemented');
+function sortByAsc(arr) {
+  if (arr.length < 2) return arr;
+
+  function quickSort(a, left, right) {
+    if (left >= right) return;
+
+    const pivot = a[Math.floor((left + right) / 2)];
+    let i = left;
+    let j = right;
+
+    while (i <= j) {
+      while (a[i] < pivot) i += 1;
+      while (a[j] > pivot) j -= 1;
+
+      if (i <= j) {
+        const temp = a[i];
+        const tempArr = a;
+        tempArr[i] = a[j];
+        tempArr[j] = temp;
+        i += 1;
+        j -= 1;
+      }
+    }
+
+    quickSort(a, left, j);
+    quickSort(a, i, right);
+  }
+
+  quickSort(arr, 0, arr.length - 1);
+  return arr;
 }
 
 /**
